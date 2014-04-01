@@ -21,6 +21,9 @@
     // Listen for Comet messages from Sails
     socket.on('message', function messageReceived(message) {
 
+      //messageを受け取ったらビューのdiv(message_list)にメッセージのリストを追加
+      addMessage(message.data.message);
+
       ///////////////////////////////////////////////////////////
       // Replace the following with your own custom logic
       // to run when a new message arrives from the Sails.js
@@ -45,9 +48,18 @@
     );
     ///////////////////////////////////////////////////////////
 
+    //メッセージ送信時のアクション呼出し
+    $('#send').click(function(){
+          socket.post('/message', {'message':$('#message').val()},function(res){});
+          $('#message').val('');
+    });
 
   });
 
+  //getでメッセージの一覧を取得して表示
+  socket.get('/message',{},function(res){
+    $.each(res,function(){addMessage(this.message);});
+  });
 
   // Expose connected `socket` instance globally so that it's easy
   // to experiment with from the browser console while prototyping.
