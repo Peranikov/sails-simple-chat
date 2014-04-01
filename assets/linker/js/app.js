@@ -50,8 +50,8 @@
 
     //メッセージ送信時のアクション呼出し
     $('#send').click(function(){
-          socket.post('/message', {'message':$('#message').val()},function(res){});
-          $('#message').val('');
+      socket.post('/message', {'message':$('#message').val()},function(res){});
+      $('#message').val('');
     });
 
   });
@@ -72,6 +72,16 @@
       console.log.apply(console, arguments);
     }
   }
+
+  function addMessage(message){
+     var chatMsg = '<li>'+escapeMessage(message)+'</li>';
+     $('#message_list').append(chatMsg);
+  }
+
+  function escapeMessage(msg){
+    return $('<div/>').text(msg).html();
+  }
+
   
 
 })(
