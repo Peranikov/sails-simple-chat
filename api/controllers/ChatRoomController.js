@@ -23,11 +23,7 @@ module.exports = {
    *    `/chatroom/room`
    */
    room: function (req, res) {
-    
-    // Send a JSON response
-    return res.json({
-      hello: 'world'
-    });
+    res.view();
   },
 
 
